@@ -1,0 +1,39 @@
+1.LPCSTR是Win32和VC++所使用的一种字符串数据类型，L表示long，P表示指针，C表示常量，STR表示字符串。
+2.LPCSTR转化为CString：
+LPCSTR  lpStr="test";
+CString str(lpStr);
+3.CString转化为LPCSTR:
+CString str("test");  
+LPCSTR lpStr = (LPCSTR)str;
+ 
+
+
+
+CString/string 区别及其转化
+利用MFC进行编程时，我们从对话框中利用GetWindowText得到的字符串是CString类型，CString是属于MFC的类。而一些标准C/C++库函数是不能直接对CString类型进行操作的，所以我们经常遇到将CString类型转化char*等等其他数据类型的情况。这里总结备忘于此！
+首先要明确，标准C中是不存在string类型的，string是标准C++扩充字符串操作的一个类。但是我们知道标准C中有string.h这个头文件，这里要区分清楚，此string非彼string。string.h这个头文件中定义了一些我们经常用到的操作字符串的函数，如：strcpy、strcat、strcmp等等，但是这些函数的操作对象都是char*指向的字符串。 而C++的string类操作对象是string类型字符串，该类重装了一些运算符，添加了一些字符串操作成员函数，使得操作字符串更加方便。有的时候我们要将string串和char*串配合使用，所以也会涉及到这两个类型的转化问题。
+
+1.CString和string的转化
+stringstr="ksarea";
+CStringcstr(str.c_str());//或者CString cstr(str.data());初始化时才行
+cstr=str.c_str();或者cstr=str.data();
+str=cstr.GetBuffer(0); //CString -> string
+cstr.format("%s", str.c_str()); //string->CString
+cstr.format("%s", str.data()); //string->CString
+str = LPCSTR(cstr); //CString->string
+/*c_str()和data()区别是：前者返回带'/0'的字符串，后者则返回不带'/0'的字符串*/
+2.CString和int的转换
+inti=123;
+CStringstr;
+str.format("%d",i);//int->CString 其他的基本类型转化类似
+i=atoi(str);//CString->int 还有(atof,atol)
+3.char*和CString的转换
+CStringcstr="ksarea";
+char* ptemp=cstr.getbuffer(0);
+char* str;
+strcpy(str,ptemp);//CString->char*
+cstr.releasebuffer(-1);
+
+char*str="lovesha";
+CStringcstr=str;//char*->CString string类型不能直接赋值给CString
+至于int与float、string与char*之间的转化可以使用强制转化，或者标准库函数进行。对于CString与其他类型的转化方法很多，但其实都殊途同归，朝着一个方向即将类型首先转化为char*类型，因为char*是不同类型之间的桥梁。得到char*类型，转化为其他类型就非常容易了

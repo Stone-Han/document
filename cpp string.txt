@@ -1,0 +1,4 @@
+string ->char[]
+string a="abc";
+const char* ch=a.c_str();
+

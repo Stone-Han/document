@@ -1,0 +1,94 @@
+1.最简单的使用方法
+
+ std::priority_queue<int> q;默认从大到小
+#include <iostream>
+#include <queue>
+#include <vector>
+int main()
+{
+std::priority_queue<int> q;
+for(int i=0;i<10;i++)
+q.push(i);
+while(!q.empty())
+{
+std::cout<<q.top()<<std::endl;
+q.pop();
+}
+for(int i=9;i>=0;i--)
+{
+q.push(i);
+}
+while(!q.empty())
+{
+std::cout<<q.top()<<std::endl;
+q.pop();
+}
+return 0;
+}
+
+
+输出结果9876543210
+2.自定义的方法
+
+需要对操作符自定义
+#include <iostream>
+#include <string>
+#include <vector>
+#include <queue>
+class MyResult
+{
+public:
+    MyResult(std::string word,int dist,int fre)
+        :m_word(word),m_dist(dist),m_frequece(fre)
+    {
+    }
+    std::string  get_word() const
+    {
+        return m_word;
+    }
+    int get_dist()
+    {
+        return m_dist;
+    }
+    int get_fre()
+    {
+        return m_frequece;
+    }
+
+private:
+    std::string m_word;
+    int m_dist;
+    int m_frequece;
+};
+class MyCompare//定义比较方法，先比较dist,dist小的在前面，如果dist相等，再比较fre，fre大的在前面
+{
+public:
+    bool operator()( MyResult left, MyResult right) const
+    {
+        if(left.get_dist()==right.get_dist()) return left.get_fre()<right.get_fre();
+        return left.get_dist()>right.get_dist();
+    }
+};
+int main()
+{
+    std::priority_queue<MyResult,std::vector<MyResult>,MyCompare> m_result;
+    MyResult r1("hello",3,100),r2("world",2,60),r3("jimmy",2,100),r4("kill",4,600);
+    m_result.push(r1);
+    m_result.push(r2);
+    m_result.push(r3);
+    m_result.push(r4);
+    while(!m_result.empty())
+    {
+        std::cout<<m_result.top().get_word()<<std::endl;
+        m_result.pop();
+    }
+    return 0;
+}运行结果为：
+
+jimmy
+
+world
+
+hello
+
+kill

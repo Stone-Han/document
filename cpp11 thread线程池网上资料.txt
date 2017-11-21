@@ -1,0 +1,14 @@
+https://www.oschina.net/translate/cplusplus-11-threading-make-your-multitasking-life
+介绍了一些基本的用法，创建，mutex, future ,promise.不是很详细。
+
+
+https://github.com/progschj/ThreadPool
+git上的实现
+http://blog.csdn.net/zdarks/article/details/46994607
+一篇基于这个实现的博文
+
+http://www.cnblogs.com/magicsoar/p/3788180.html
+自己实现的线程池  有代码
+
+http://blog.csdn.net/arau_sh/article/details/8592579
+poco

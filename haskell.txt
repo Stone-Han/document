@@ -1,0 +1,56 @@
+主要参考programming in haskell ppt
+chap1:
+	在linux 下装上hugs，然后可以运行一些简单的运算 1+1
+	退出 :quit
+还可以在文档中写函数 double x=x+x
+存为.hs文件
+在路径下面hugs test.hs
+如果改变了文件内容 :reload 就可以使用函数了
+chap3: type
+add x y =x+y 一次获取两个值，叫做curried functionS
+mult x y z =((multx)y)z
+Num 数字类型
+Eq 等
+Ord 有序
+(+)  :: Num a ? a ? a ? a
+ 
+(==) :: Eq a  ? a ? a ? Bool
+
+(<)  :: Ord a ? a ? a ? Bool
+
+chap4:
+	主要讲了curry这个概念，讲了一些变量类型
+chap5:
+ -lists 
+> [(x,y) | y ? [4,5], x ? [1,2,3]]
+[(1,4),(2,4),(3,4),(1,5),(2,5),(3,5)]
+dependent generators
+concat    :: [[a]] ? [a]
+concat xss = [x | xs ? xss, x ? xs]
+> concat [[1,2,3],[4,5],[6]]
+[1,2,3,4,5,6]
+guards
+[x | x ? [1..10], even x]
+zip function
+> zip [’a’,’b’,’c’] [1,2,3,4]
+[(’a’,1),(’b’,2),(’c’,3)]
+可以扩展为pairs结对函数，结对函数可以判断是否有序
+string
+
+chap6: recursive functions
+factorial 0     = 1
+factorial (n+1) = (n+1) * factorial n
+
+qsort       :: [Int] ? [Int]
+qsort []     = []
+qsort (x:xs) =
+   qsort smaller ++ [x] ++ qsort larger
+   where
+      smaller = [a | a ? xs, a ? x]
+      larger  = [b | b ? xs, b ? x]
+
+
+
+
+
+

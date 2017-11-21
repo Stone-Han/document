@@ -1,0 +1,60 @@
+STL中的函数random_shuffle()用来对一个元素序列进行重新排序（随机的），函数原型如下：
+template<class RandomAccessIterator>  
+   void random_shuffle(  
+      RandomAccessIterator _First, //指向序列首元素的迭代器  
+      RandomAccessIterator _Last  //指向序列最后一个元素的下一个位置的迭代器  
+   );#include "stdafx.h"  
+#include <iostream>  
+#include <vector>  
+#include <algorithm>  
+using namespace std;  
+  
+int _tmain(int argc, _TCHAR* argv[])  
+{  
+     vector<string> str;  
+     str.push_back("hello");  
+     str.push_back("world");  
+     str.push_back("welcome");  
+     str.push_back("to");  
+     str.push_back("Beijing");  
+  
+     std::random_shuffle(str.begin(),str.end());//迭代器  
+  
+     for(int j = 0; j < str.size(); j++)  
+     {  
+         cout<<str[j].c_str()<<" ";  
+     }  
+     cout<<endl;  
+   
+    system("pause");  
+    return 0;  
+} 
+
+运行结果：随机打乱 world Beijing welcome to hello 
+
+
+
+
+ #include "stdafx.h"  
+#include <iostream>  
+#include <vector>  
+#include <algorithm>  
+using namespace std;  
+  
+int _tmain(int argc, _TCHAR* argv[])  
+{  
+    char arr[] = {'a', 'b', 'c', 'd', 'e', 'f'};  
+  
+     std::random_shuffle(arr,arr+6);//迭代器  
+  
+     for(int j = 0; j < 6; j++)  
+     {  
+         cout<<arr[j]<<" ";  
+     }  
+     cout<<endl;  
+   
+    system("pause");  
+    return 0;  
+}  
+
+运行结果：b e c a d f

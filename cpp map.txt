@@ -1,0 +1,6 @@
+
+Employees.insert(std::pair<string, int>("David D.", 1984));  
+
+Employees.insert(map<string, int>::value_type("John A.", 7582));  
+
+Employees.insert(make_pair("Peter Q.", 5328));

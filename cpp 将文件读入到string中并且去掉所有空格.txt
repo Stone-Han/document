@@ -1,0 +1,51 @@
+#include "stdafx.h"
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+using namespace std;
+
+
+//从文件读入到string里
+string readFileIntoString(char * filename)
+{
+	ifstream ifile(filename);
+	//将文件读入到ostringstream对象buf中
+	ostringstream buf;
+	char ch;
+	while(buf&&ifile.get(ch))
+		buf.put(ch);
+	//返回与流对象buf关联的字符串
+	return buf.str();
+}
+
+int main()
+{
+	//文件名
+	char * fn="d:\\1.txt";
+	string str;
+	str=readFileIntoString(fn);
+//	cout<<str<<endl;
+
+	//去掉sNewTag中所有空格
+	string sNewTag = str;
+	int begin = 0;
+
+	begin = sNewTag.find("	",begin);  //查找空格在str中第一次出现的位置
+
+	while(begin != -1)  //表示字符串中存在空格
+
+	{
+
+		sNewTag.replace(begin, 1, "");  // 用空串替换str中从begin开始的1个字符
+
+		begin = sNewTag.find("	",begin);  //查找空格在替换后的str中第一次出现的位置
+
+	}
+	cout<<sNewTag<<endl;
+	ofstream file;
+	file.open("d:\\2.txt");
+	file<<sNewTag<<endl;
+	file.close();
+	return 0;
+}

@@ -1,0 +1,65 @@
+CtrlCloseEvent是有超时机制的，5秒钟。因此sleep（20000）还是会5秒钟关闭。不管在SystemPause前面还是后面都不管用。
+但是如果在switch分辨消息前面加上处理语句，在按下ctrl+c的时候显示enter，然后sleep10秒，然后才显示22222，和Ctrl+c event。
+所以在处理收尾数据的时候可以先处理然后再对消息进行响应。
+
+#include "stdafx.h"
+#include <iostream>
+#include <windows.h> 
+
+using namespace std;
+
+BOOL CtrlHandler( DWORD fdwCtrlType );
+
+int main(int argc, char** argv) 
+{
+	if( SetConsoleCtrlHandler( (PHANDLER_ROUTINE) CtrlHandler, TRUE ) ) 
+	{ 
+
+		cout << "Control Handler is installed" << endl; 
+		cout << " Ctrl+C, Ctrl+Break, logging off or closing console NOW intercepted." << endl;
+		cout << " ... into message loop.\n" << endl;  
+		while( 1 ){ } 
+
+	} 
+	else 
+		cout << "Control handler setting failed...." << endl;
+	return 0;    
+}
+
+BOOL CtrlHandler( DWORD fdwCtrlType ) 
+{ 
+	cout<<"enter"<<endl;
+	Sleep(10000);
+	cout<<"222222"<<endl;
+	switch( fdwCtrlType ) 
+	switch( fdwCtrlType ) 
+	{     
+	case CTRL_C_EVENT: 
+		printf( "Ctrl-C event\n\n" );
+		Sleep(10000);
+		cout<<"sleepover"<<endl;
+		return( TRUE );
+
+	case CTRL_CLOSE_EVENT: 
+		printf( "Ctrl-Close event\n\n" );
+		Sleep(20000);
+		system("pause");
+		return( TRUE ); 
+
+	case CTRL_BREAK_EVENT:       
+		printf( "Ctrl-Break event\n\n" );
+		return FALSE; // pass thru, let the system to handle the event.
+
+	case CTRL_LOGOFF_EVENT:       
+		printf( "Ctrl-Logoff event\n\n" );
+		return FALSE; // pass thru, let the system to handle the event.
+
+	case CTRL_SHUTDOWN_EVENT:       
+		printf( "Ctrl-Shutdown event\n\n" );
+		return FALSE; // pass thru, let the system to handle the event.
+
+	default: 
+		return FALSE; 
+	} 
+}
+

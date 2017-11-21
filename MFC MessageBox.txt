@@ -1,0 +1,32 @@
+1.MessageBox("内容","标题");
+2.MessageBox(CString  );
+
+3.CString s;
+s.Format("%d个文件更新完毕",size);
+MessageBox(s);
+
+
+/*CString out;
+	out.Format("%s",searchpath.c_str());
+	MessageBox(out);*/
+
+
+
+
+http://blog.sina.com.cn/s/blog_7911d0fb0100v2cf.html
+二    用法
+1.    MessageBox("这是一个最简单的消息框！");
+2.    MessageBox("这是一个有标题的消息框！","标题");
+3.    MessageBox("这是一个确定取消的消息框！","标题", MB_OKCANCEL );
+4.    MessageBox("这是一个警告的消息框！","标题", MB_ICONEXCLAMATION );
+5.    MessageBox("这是一个两种属性的消息框！","标题",
+              MB_ICONEXCLAMATION|MB_OKCANCEL );
+6.    if(MessageBox("一种常用的应用","标题
+              " ,MB_ICONEXCLAMATION|MB_OKCANCEL)==IDCANCEL)
+        return;
+注意：
+以上消息框的用法是在CWnd的子类中的应用，如果不是，则要MessageBox(NULL,"ddd","ddd",MB_OK); 或MessageBox(hWnd,"ddd","ddd",MB_OK); hWnd为某窗口的句柄，或者直接用AfxMessageBox。
+二、在MessageBox中显示变量的值
+      CString string;
+      string.format("%d%s",m_age, m_address); //将变量组装到字符串中
+       MessageBox(string,"消息框标题",消息框类型);
